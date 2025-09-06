@@ -1,0 +1,6 @@
+store_id,store_name,employee_id,employee_name,role,overall_score,violations_total,kpi_2024,tenure_months,target_store_id,success_proba
+285,Bkr 427 Nguyễn Lương Bằng,QLMB,Phạm Thị Ngọc Thúy,Phó quản lý,78.55,2,2.79,8.0,270,0.9066666666666666
+218,Bkr 217 Văn Tiến Dũng,3606,Ngô Thị Hoàng Vy,Quản lý,76.45,0,2.23,8.0,270,0.8833333333333333
+285,Bkr 427 Nguyễn Lương Bằng,PQLMB,Nguyễn Văn Hào,Quản lý,75.45,1,2.79,,270,0.85
+176,Bkr 68 Lê Hữu Trác,3002,Lê Thị Hoài,Phó quản lý,76.52,0,2.804,26.0,270,0.7233333333333334
+266,Bkr 16 Lê Đình Kỵ,2987,Nguyễn Thị Thảo Nguyên,Quản lý,70.79,3,2.6078,17.0,270,0.4533333333333333

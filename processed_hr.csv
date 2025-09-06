@@ -1,0 +1,129 @@
+﻿store_id,store_name,employee_id,employee_name,role,appointed_date,hr_score,bod_score,kpi_2024,kpi_2025,violations_2022,violations_2023,violations_2024
+270,Bkr 07 Nguyễn Đình Tựu,3225,Nguyễn Thúy Hằng,Quản lý,03-04-2024,60,50,2.62,0.0,0,1,1
+291,Bkr 07 Triệu Nữ Vương,3881,Nguyễn Thị Tuyết Trinh,Quản lý ,,0,0,0.0,0.0,0,0,0
+235,Bkr 102 Châu Thị Vĩnh Tế,3205,Phạm Hải Tâm Anh,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+235,Bkr 102 Châu Thị Vĩnh Tế,1881,Nguyễn Thị Thu Dung,Quản lý,,75,80,2.64,0.0,24,24,3
+245,Bkr 106 Lê Đình Dương,2870,Trần Thị Nhi,Quản lý,01-09-2022,70,80,2.68,0.0,2,14,2
+245,Bkr 106 Lê Đình Dương,2660,Nguyễn Thị Như Quỳnh,Phó quản lý,01-01-2023,70,55,2.65,0.0,12,14,14
+20,Bkr 108A Nguyễn Hữu Thọ,QL108ANHT,Phạm Nghiên,Quản lý,17-05-1993,60,50,2.54,0.0,6,15,6
+20,Bkr 108A Nguyễn Hữu Thọ,1155,Phạm Thị Lệ Thu,Phó quản lý,01-02-2024,75,70,2.63,0.0,2,14,2
+239,Bkr 112 Trần Duy Chiến,PQL146VD,Đặng Thị Thu Phúc,Quản lý,07-06-2022,85,70,2.74,0.0,4,3,1
+239,Bkr 112 Trần Duy Chiến,1849,Võ Thị Thùy Dương,Phó quản lý,12-12-2023,85,80,2.73,0.0,6,9,4
+21,Bkr 113 Hoàng Diệu,3818,Lê Thị Minh Thy,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+21,Bkr 113 Hoàng Diệu,QL113HD,Nguyễn Thị Minh,Quản lý,10-09-2012,70,65,2.68,0.0,29,20,5
+22,Bkr 116 Hà Huy Tập,QL116HHT,Hồ Thị Hồng Huệ,Quản lý,10-03-2008,85,70,2.806,0.0,9,6,0
+258,Bkr 116 Nguyễn Phước Lan,1571,Đinh Thị Hoa,Quản lý,22-06-2023,85,80,2.82,0.0,2,2,1
+258,Bkr 116 Nguyễn Phước Lan,1035,Phạm Thị Thanh Thương,Phó quản lý,01-11-2023,85,75,2.809,0.0,5,7,2
+278,Bkr 117 Hoàng Văn Thái,3566,Phan Thị Phượng,Quản lý,01-10-2024,70,60,2.53,0.0,0,0,1
+278,Bkr 117 Hoàng Văn Thái,3838,Phạm Thị Lan,Phó quản lý ,,0,0,0.0,0.0,0,0,0
+287,Bkr 117 Tô Hiệu,3871,Nguyễn Thị Băng Sương,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+287,Bkr 117 Tô Hiệu,3899,Nguyễn Thị Hồng Trâm,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+24,Bkr 124 Vân Đồn,PQL383NT,Nguyễn Thị Phượng,Quản lý,01-08-2023,70,75,2.5,0.0,22,20,6
+24,Bkr 124 Vân Đồn,2008,Phan Thị Hồng Nhi,Phó quản lý,01-08-2023,70,65,2.42,0.0,30,2,10
+163,Bkr 126 Lê Thanh Nghị,2347,Trần Thị Hằng,Quản lý,24-07-2020,75,70,2.49,0.0,40,23,7
+163,Bkr 126 Lê Thanh Nghị,796,Trần Thị ánh Phương,Phó quản lý,20-06-2022,75,70,2.47,0.0,18,25,9
+267,Bkr 126 Lê Trọng Tấn,2906,Trần Nguyễn Thuỳ Linh,Quản lý,01-01-2023,60,50,2.53,0.0,6,19,4
+302,Bkr 130 Tiểu La,3876,Bùi Trung Hiếu,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+302,Bkr 130 Tiểu La,3587,Trần Thị Diễm,Quản lý ,,78,60,2.55,0.0,0,0,2
+298,Bkr 131 Kỳ Đồng,3602,Trần Thị Thùy Trang,Quản lý ,31-03-2025,0,0,0.0,0.0,0,0,0
+243,Bkr 133 Lê Tấn Trung,3026,Bùi Thị Thu Hà,Quản lý,13-08-2022,70,70,2.72,0.0,13,27,3
+240,Bkr 142 Lý Tự Trọng,2490,Phạm Thị Kiều  Khắc,Quản lý,16-08-2022,85,75,2.83,0.0,3,3,0
+240,Bkr 142 Lý Tự Trọng,2203,Hoàng Thị Lệ,Phó quản lý,01-08-2022,80,70,2.81,0.0,1,4,1
+238,Bkr 147 Nguyễn Công Trứ,2732,Phạm Thị Thanh Vi,Quản lý,24-05-2022,70,70,2.79,0.0,22,8,1
+238,Bkr 147 Nguyễn Công Trứ,2088,Trần Thị Mỹ Hương,Phó quản lý,17-06-2022,70,60,2.79,0.0,8,4,3
+124,Bkr 15 Đống Đa,PQL57NHT,Trần Thị Hoa,Quản lý,27-06-2020,85,65,2.77,0.0,25,6,3
+124,Bkr 15 Đống Đa,3629,Dương Tấn Lực,Phó quản lý,13-08-2024,60,55,2.4,0.0,0,0,6
+228,Bkr 15 Lê Tấn Trung,3439,Mai Văn Thạnh,Quản lý,,70,60,2.46,0.0,0,3,3
+228,Bkr 15 Lê Tấn Trung,3494,Trương Thị Tuyết Nhi,Phó quản lý,,60,50,2.4,0.0,0,0,0
+266,Bkr 16 Lê Đình Kỵ,2987,Nguyễn Thị Thảo Nguyên,Quản lý,01-04-2024,75,70,2.6078,0.0,0,0,3
+266,Bkr 16 Lê Đình Kỵ,3598,Nguyễn Quyết Thắng,Phó quản lý,22-06-2024,60,65,2.605,0.0,0,0,3
+272,Bkr 16 Ông ích Khiêm,2658,Hồ Thị Hồng Diệu,Quản lý,24-04-2024,75,70,2.63,0.0,0,2,2
+272,Bkr 16 Ông ích Khiêm,2974,Trần Thị Lành,Phó quản lý,24-07-2024,60,60,2.46,0.0,0,0,3
+26,Bkr 161 Hải Phòng,QL161HP,Trần Thị Nhi,Quản lý,17-05-1993,90,95,2.73,0.0,17,19,4
+26,Bkr 161 Hải Phòng,3246,Trần Thị Trang,Phó quản lý,01-11-2022,70,0,2.74,0.0,0,2,0
+276,Bkr 182 Lương Nhữ Hộc,4033,Nguyễn Thị Linh Nhâm,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+276,Bkr 182 Lương Nhữ Hộc,3952,Nguyễn Thị Hồng Vy,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+276,Bkr 182 Lương Nhữ Hộc,2932,Nguyễn Thị Việt Trinh,Phó quản lý,19-06-2024,60,55,2.56,0.0,0,0,5
+30,Bkr 193 Nguyễn Hoàng,QL209NVL,Trần Thị Hào,Quản lý,11-04-2024,75,75,2.62,0.0,6,9,3
+29,Bkr 201 Phan Thanh,QL207PT,Nguyễn Thị Loan,Quản lý,17-05-1993,85,70,2.809,0.0,10,13,1
+29,Bkr 201 Phan Thanh,1264,Phạm Thị Bích Tuyền,Phó quản lý,27-10-1999,85,70,2.804,0.0,9,12,3
+28,Bkr 206-208 Quang Trung,QL206QT,Nguyễn Thị Thùy Lan,Quản lý,17-05-2007,75,80,2.72,0.0,10,9,1
+28,Bkr 206-208 Quang Trung,1227,Trần Thị Ngọc Hậu,Phó quản lý,01-01-2022,75,70,2.72,0.0,13,10,3
+125,Bkr 214 Cách Mạng Tháng 8,QL278CMT8,Lê Thị Nhật Linh,Quản lý,17-05-1993,85,80,2.74,0.0,5,0,1
+125,Bkr 214 Cách Mạng Tháng 8,1559,Lê Thị Luyên,Phó quản lý,05-07-2018,85,80,2.74,0.0,4,0,0
+218,Bkr 217 Văn Tiến Dũng,3539,Trần Thị Kim Hoa,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+218,Bkr 217 Văn Tiến Dũng,3606,Ngô Thị Hoàng Vy,Quản lý,16-12-2024,78,80,2.23,36.0,0,0,0
+300,Bkr 229 Kinh Dương Vương,3853,Nguyễn Thị Thanh Phương,Quản lý ,13-01-2022,0,0,0.0,0.0,0,0,0
+289,Bkr 23 Hoàng Hoa Thám,3380,Hà Thị Nhất Ly,Quản lý tập sự ,14-03-2025,0,0,0.0,0.0,0,0,0
+283,Bkr 260 Hoàng Văn Thái,3014,Phan Thị Thanh Hằng,Quản lý,01-01-2025,60,55,0.0,0.0,0,0,0
+283,Bkr 260 Hoàng Văn Thái,3463,Lê Thị Bích Trâm,Phó quản lý,01-09-2024,50,50,2.8067,0.0,0,0,1
+282,Bkr 27 Nguyễn Huy Tưởng,3638,Nguyễn Thị Thanh Trà,Quản lý,01-01-2025,60,55,2.26,0.0,0,0,1
+282,Bkr 27 Nguyễn Huy Tưởng,3754,Mai Như Quỳnh,Phó quản lý,01-01-2025,0,0,0.0,0.0,0,0,0
+262,Bkr 315 Khúc Hạo,958,Trần Thị Nga,Quản lý,23-10-2023,75,60,2.63,0.0,42,16,2
+262,Bkr 315 Khúc Hạo,PQL315KH,Lê Văn Vĩnh,Phó quản lý,,0,0,0.0,0.0,0,0,0
+231,Bkr 33 Đinh Tiên Hoàng,2216,Chế Thị Minh Thư,Quản lý,03-03-2022,75,70,2.7,0.0,8,5,1
+231,Bkr 33 Đinh Tiên Hoàng,2880,Lê Thị Thuỷ Tiên,Phó quản lý,01-10-2024,60,50,3.0,0.0,0,0,1
+275,Bkr 33 Tiểu La,QL94OID,Trần Thị Thu Thảo,Quản lý,19-05-2024,70,70,2.49,0.0,5,6,1
+275,Bkr 33 Tiểu La,3666,Đoàn Dũng Anh Quân,Phó quản lý,12-11-2024,60,60,2.32,0.0,0,0,1
+136,Bkr 330 Hà Huy Tập,3290,Lê Thị Vĩnh Hải,Phó quản lý,11-06-2024,60,55,2.36,0.0,0,13,6
+286,Bkr 342 Âu Cơ,3856,Trần Thị Phường,Phó quản lý ,,0,0,0.0,0.0,0,0,0
+175,Bkr 344 Ngũ Hành Sơn,3649,Phạm Hoàng Tiến,Quản lý,,60,60,2.21,33.5,0,0,0
+175,Bkr 344 Ngũ Hành Sơn,3480,Nguyễn Thị Hồng Nhật Thủy,Phó quản lý,15-10-2016,60,60,2.1733,0.0,0,0,1
+280,Bkr 37 Lê Hồng Phong,3233,Phạm Hoàng Dáng Tiên,Quản lý,01-08-2024,70,60,2.21,0.0,0,0,4
+280,Bkr 37 Lê Hồng Phong,3626,Phạm Thị Thu Dung,Phó quản lý,01-01-2025,60,55,2.0,0.0,0,0,2
+301,Bkr 37 Trương Định,3483,Nguyễn Thị Thu Trang,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+301,Bkr 37 Trương Định,2918,Huỳnh Thị Thu Hoa,Quản lý,17-09-2023,70,60,2.63,0.0,0,0,0
+123,Bkr 383 Núi Thành,2991,Nguyễn Thị Thúy An,Quản lý,11-09-2024,70,70,2.59,0.0,4,12,1
+123,Bkr 383 Núi Thành,3624,Nguyễn Hà Cẩm Trúc,Phó quản lý,13-08-2024,70,60,2.6,0.0,0,0,0
+281,Bkr 387 Kinh Dương Vương,QLHN,Lê Thị Mỹ Loan,Quản lý,18-10-2024,55,65,2.48,0.0,4,10,1
+281,Bkr 387 Kinh Dương Vương,PQLHN,Trần Văn Nam,Phó quản lý,18-10-2024,55,55,2.37,0.0,4,9,1
+246,Bkr 402 đường 29 tháng 3,3370,Ngô Trần Nguyên Hương,Quản lý,01-11-2024,60,60,2.54,0.0,0,0,4
+246,Bkr 402 đường 29 tháng 3,3537,Nguyễn Thị Ngọc,Quản lý,16-12-2024,0,0,0.0,0.0,0,0,0
+285,Bkr 427 Nguyễn Lương Bằng,PQLMB,Nguyễn Văn Hào,Quản lý,,85,65,2.79,0.0,0,0,1
+285,Bkr 427 Nguyễn Lương Bằng,QLMB,Phạm Thị Ngọc Thúy,Phó quản lý,18-12-2024,85,75,2.79,0.0,0,2,0
+112,Bkr 435 Trường Chinh,QL435TC,Lê Văn Quảng,Quản lý,,65,60,2.43,0.0,38,22,0
+112,Bkr 435 Trường Chinh,PQL435TC,Lương Trần Rô Ly,Quản lý,01-03-2001,65,60,2.43,0.0,50,24,10
+237,Bkr 439 Trần Nhân Tông,3617,Nguyễn Thị Thuỳ Trang,Quản lý,27-06-2024,70,75,2.46,0.0,0,0,7
+237,Bkr 439 Trần Nhân Tông,3712,Huỳnh Thị Hiền,Phó quản lý,01-08-2024,75,60,2.46,0.0,0,0,0
+264,Bkr 47 Cao Sơn Pháo,2514,Nguyễn Thị Lệ Thu,Quản lý,,60,55,2.64,0.0,0,0,0
+234,Bkr 476 Trần Cao Vân,3811,Nguyễn Hồ ái Ngọc,Quản lý,,0,0,0.0,0.0,0,0,0
+35,Bkr 56 Nguyễn Phan Vinh,QL56NPV,Trần Tuyến,Quản lý,09-01-2006,70,65,2.6,0.0,7,10,3
+35,Bkr 56 Nguyễn Phan Vinh,PQL56NPV,Nguyễn Thị Hằng,Phó quản lý,09-10-2006,65,60,2.62,0.0,18,17,0
+109,Bkr 56 Quang Trung,PQL56QT,Nguyễn Thị Thu Thảo,Quản lý,01-03-2019,70,65,2.85,0.0,10,10,1
+109,Bkr 56 Quang Trung,644,Trần Thị Tuyết Phượng,Phó quản lý,01-01-2021,85,65,2.841,0.0,1,6,2
+122,Bkr 57 Nguyễn Hữu Thọ,QL07PDC,Nguyễn Thị Thạnh,Quản lý,03-07-2018,72,65,2.5,0.0,12,23,17
+122,Bkr 57 Nguyễn Hữu Thọ,PQL07PDC,Trần Nhật Luyện,Phó quản lý,03-07-2018,70,60,2.64,0.0,5,11,0
+38,Bkr 575 Điện Biên Phủ,2581,Trương Công Hồng Vy,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+38,Bkr 575 Điện Biên Phủ,QL575DBP,Hồ Thị Luận Phương,Quản lý,17-05-2009,75,70,2.7,0.0,3,4,1
+288,Bkr 602 Hòa Vang,3931,Nguyễn Thị Thiên Thanh,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+271,Bkr 62 Phan Triêm,3868,Lê Thị Kim Thỏa,Phó quản lý,,60,55,2.81,0.0,0,0,4
+120,Bkr 64 Lý Thái Tông,PQL116HHT,Phan Thị Luyến,Quản lý ,,60,55,2.78,0.0,6,4,3
+120,Bkr 64 Lý Thái Tông,3827,Trương Quang Tùng Linh,Phó quản lý ,,0,0,0.0,0.0,0,0,0
+176,Bkr 68 Lê Hữu Trác,QL1201NQ,Lê Thị Trà My,Quản lý,11-11-2021,85,80,2.8,0.0,20,17,0
+176,Bkr 68 Lê Hữu Trác,3002,Lê Thị Hoài,Phó quản lý,16-06-2023,80,70,2.804,0.0,0,0,0
+162,Bkr 68 Lê Văn Hiến,QL15DD,Trương Thị Như,Quản lý,,60,55,2.3,0.0,16,19,8
+162,Bkr 68 Lê Văn Hiến,3540,Nguyễn Thị Tường Vy,Phó quản lý ,,0,0,0.0,0.0,0,0,0
+111,Bkr 743 Trần Cao Vân,QL743TCV,Bùi Thị Bảy,Quản lý,17-05-1994,65,60,2.58,0.0,5,5,2
+111,Bkr 743 Trần Cao Vân,PQL743TCV,Huỳnh Sáu,Phó quản lý,05-12-2000,50,50,2.26,0.0,8,0,1
+119,Bkr 75 Phan Đăng Lưu,QL75PDL,Nguyễn Thị Ninh,Quản lý,01-01-2013,75,75,2.72,0.0,27,7,6
+119,Bkr 75 Phan Đăng Lưu,PQL75PDL,Lê Hoài Phong,Phó quản lý,01-01-2013,85,85,2.74,0.0,30,5,1
+259,Bkr 78 Nguyễn Công Hãng,3108,Hà Thị ánh Tuyết,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+259,Bkr 78 Nguyễn Công Hãng,3568,Đặng Thị Hòa,Quản lý ,,0,0,0.0,0.0,0,0,0
+284,Bkr 829 Âu Cơ,3739,Bùi Thị Thảo,Quản lý,04-12-2024,60,55,0.0,0.0,0,0,1
+252,Bkr 90 Vân Đồn,3399,Cao Thị Thanh My,Quản lý,01-04-2024,75,60,2.26,0.0,0,0,2
+252,Bkr 90 Vân Đồn,3690,Cao Thị Thanh Pha,Phó quản lý,27-05-2024,75,60,2.45,0.0,0,0,1
+41,Bkr 94 Ông ích Đường,PQL94OID,Phạm Thị Quyên,Quản lý,17-05-1993,70,75,2.62,0.0,18,11,3
+41,Bkr 94 Ông ích Đường,1266,Nguyễn Đông Phương,Phó quản lý,01-11-2024,60,65,2.11,0.0,0,0,1
+265,Bkr 96 Đinh Châu,2723,Phan Thị Thùy Trinh,Quản lý,,60,65,2.57,0.0,1,3,1
+265,Bkr 96 Đinh Châu,3620,Đinh Ngọc Thiên Trang,Phó quản lý,16-08-2024,60,65,2.63,0.0,0,0,1
+236,Bkr 97 Nguyễn Thị Định,2204,Phạm Thị Hồng Muội,Quản lý,16-04-2022,70,60,2.66,0.0,18,15,3
+236,Bkr 97 Nguyễn Thị Định,3357,Nguyễn Thị Thu Dung,Phó quản lý,01-06-2024,70,60,2.67,0.0,0,1,0
+274,Bkr Cầu Đỏ - Túy Loan,3700,Phan Thị Thanh Tài,Quản lý,16-11-2024,60,50,2.26,0.0,0,0,0
+160,Bkr Hòa Nhơn 2,3385,Phan Mi Mi,Quản lý,22-09-2023,60,65,2.44,0.0,0,4,12
+160,Bkr Hòa Nhơn 2,3572,Phan Ti Ni,Phó quản lý,16-05-2024,60,60,2.37,0.0,0,0,1
+279,Bkr Hòa Tiến 1,3998,Phạm Thị Thu Hiền,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+279,Bkr Hòa Tiến 1,2069,Đặng Thị ánh Tuyết,Quản lý,15-09-2024,70,55,2.65,0.0,24,18,3
+279,Bkr Hòa Tiến 1,3479,Đặng Thúy Trinh,Phó quản lý ,,0,0,0.0,0.0,0,0,0
+297,Bkr Hòa Tiến 2,3854,Dương Thanh Quyên,Quản lý ,,0,0,0.0,0.0,0,0,0
+121,Bkr Miếu Bông,3653,Nguyễn Thị Hồng Nhung,Quản lý tập sự ,,0,0,0.0,0.0,0,0,0
+121,Bkr Miếu Bông,3586,Phan Thị Cẩm Tiên,Quản lý,01-01-2025,0,0,0.0,0.0,0,0,0
