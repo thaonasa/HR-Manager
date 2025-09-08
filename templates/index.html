@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HR Recommendation Chatbot</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+    body { background:#f0f2f6; height:100vh; display:flex; flex-direction:column; }
+    .header { background:#1e90ff; color:#fff; padding:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    .container { display:flex; flex:1; overflow:hidden; }
+    .sidebar { width:260px; background:#fff; padding:10px; box-shadow:2px 0 4px rgba(0,0,0,.1); overflow-y:auto; }
+    .sidebar h3 { color:#1e90ff; margin-bottom:10px; }
+    .sidebar select, .sidebar button { width:100%; padding:6px; margin:6px 0; border-radius:6px; border:1px solid #ccc; cursor:pointer; }
+    .status { font-size:12px; margin:6px 0 12px; color:#666 }
+    .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; background:#aaa; vertical-align:middle; }
+    .main { flex:1; display:flex; flex-direction:column; padding:10px; }
+    .chat-area { flex:1; overflow-y:auto; padding:10px; background:#fff; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,.1); margin-bottom:10px; }
+    .message { display:flex; align-items:flex-start; gap:8px; margin:6px 0; padding:10px; border-radius:10px; background:#f9f9f9; animation:fadeIn .3s; }
+    .user-message { background:#e3f2fd; }
+    .bot-message { background:#fff3e0; }
+    .avatar { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+    .user-message .avatar { background:#1e90ff; color:#fff; }
+    .bot-message .avatar { background:#ff9800; color:#fff; }
+    .input-area { display:flex; gap:10px; }
+    .input-area input { flex:1; padding:10px; border:1px solid #ccc; border-radius:5px; }
+    .input-area button { padding:10px 20px; background:#1e90ff; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+    .footer { background:#1e90ff; color:#fff; text-align:center; padding:10px; box-shadow:0 -2px 4px rgba(0,0,0,.1); }
+    .spinner { border:4px solid #f3f3f3; border-top:4px solid #1e90ff; border-radius:50%; width:20px; height:20px; animation:spin 1s linear infinite; display:inline-block; }
+    @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>🤖 HR Recommendation Chatbot</h2>
+    <p>Chào mừng bạn đến với trợ lý nhân sự thông minh!</p>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <h3>Tùy chọn</h3>
+      <div class="status">
+        <span id="status-dot" class="dot"></span>
+        <span id="status-text">Đang kiểm tra kết nối…</span>
+      </div>
+      <p>API: <span style="color:#1e90ff;">Flask proxy → FastAPI</span></p>
+
+      <select id="session-select">
+        <option value="session-1">session-1</option>
+      </select>
+      <button onclick="createNewSession()">Tạo session mới</button>
+      <button onclick="deleteCurrentSession()">Xóa session hiện tại</button>
+      <button onclick="refreshSessions(false)">Làm mới session</button>
+      <button onclick="showContact()">Liên hệ</button>
+    </div>
+
+    <div class="main">
+      <div class="chat-area" id="chat-area"></div>
+      <div class="input-area">
+        <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+        <button onclick="sendMessage()">Gửi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 xAI | Email: support@xai.com | Phone: +84 123 456 789
+  </div>
+
+  <script>
+    // ====== State ======
+    let currentSession = localStorage.getItem("hr_current_session") || "session-1";
+    const chatArea = document.getElementById("chat-area");
+    const chatInput = document.getElementById("chat-input");
+    const sessionSelect = document.getElementById("session-select");
+    const statusDot = document.getElementById("status-dot");
+    const statusText = document.getElementById("status-text");
+
+    // ====== Utils ======
+    function esc(str){ return (str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+    function addMessage(role, htmlContent) {
+      const wrap = document.createElement("div");
+      wrap.classList.add("message", role === "user" ? "user-message" : "bot-message");
+
+      const avatar = document.createElement("div");
+      avatar.classList.add("avatar");
+      avatar.textContent = role === "user" ? "👤" : "🤖";
+
+      const content = document.createElement("div");
+      content.style.flex = "1";
+      content.innerHTML = htmlContent;
+
+      wrap.appendChild(avatar);
+      wrap.appendChild(content);
+      chatArea.appendChild(wrap);
+      chatArea.scrollTop = chatArea.scrollHeight;
+      return wrap;
+    }
+    const addBotHTML = (html) => addMessage("bot", html);
+
+    function renderEmployeesTable(employees, title = "Danh sách nhân sự") {
+      if (!Array.isArray(employees) || employees.length === 0)
+        return `<div><strong>${title}:</strong> Không có dữ liệu.</div>`;
+
+      const head = `
+        <thead>
+          <tr style="background:#1e90ff;color:#fff;">
+            <th style="text-align:left;padding:6px 8px;">Store ID</th>
+            <th style="text-align:left;padding:6px 8px;">Store</th>
+            <th style="text-align:left;padding:6px 8px;">Họ tên</th>
+            <th style="text-align:left;padding:6px 8px;">Role</th>
+            <th style="text-align:right;padding:6px 8px;">KPI 2024</th>
+            <th style="text-align:right;padding:6px 8px;">Violations</th>
+            <th style="text-align:right;padding:6px 8px;">Điểm tổng</th>
+            <th style="text-align:right;padding:6px 8px;">Thâm niên (tháng)</th>
+          </tr>
+        </thead>`;
+      const rows = employees.map(e => `
+        <tr>
+          <td style="padding:6px 8px;">${e.store_id ?? "-"}</td>
+          <td style="padding:6px 8px;">${e.store_name ?? "-"}</td>
+          <td style="padding:6px 8px;"><strong>${e.employee_name ?? "-"}</strong></td>
+          <td style="padding:6px 8px;">${e.role ?? "-"}</td>
+          <td style="padding:6px 8px;text-align:right;">${e.kpi_2024 ?? "-"}</td>
+          <td style="padding:6px 8px;text-align:right;">${e.violations_total ?? "-"}</td>
+          <td style="padding:6px 8px;text-align:right;">${e.overall_score ?? "-"}</td>
+          <td style="padding:6px 8px;text-align:right;">${e.tenure_months ?? "-"}</td>
+        </tr>`).join("");
+      return `
+        <div style="margin-bottom:8px;"><strong>${title}</strong> — tổng: ${employees.length}</div>
+        <div style="overflow:auto;border:1px solid #eee;border-radius:8px;background:#fff7e6;">
+          <table style="border-collapse:collapse;width:100%;font-size:14px;">
+            ${head}
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+
+    function api(path, opts = {}) {
+      return fetch(path, { headers: { "Content-Type": "application/json" }, ...opts })
+        .then(r => { if (!r.ok) throw new Error(r.status+" "+r.statusText); return r.json(); });
+    }
+
+    // ====== Chat ======
+    function sendMessage() {
+      const raw = chatInput.value.trim();
+      if (!raw) return;
+      addMessage("user", esc(raw));
+      chatInput.value = "";
+
+      const spinner = addBotHTML('<div class="spinner"></div> Đang xử lý...');
+
+      api("/chat", { method:"POST", body: JSON.stringify({ message: raw, session_id: currentSession }) })
+        .then(data => {
+          spinner.remove();
+          const employees = data.employees || data.payload?.employees;
+          if (Array.isArray(employees)) {
+            const title = data.meta?.title || data.response || "Danh sách nhân sự";
+            addBotHTML(renderEmployeesTable(employees, title));
+          } else {
+            addMessage("bot", esc(data.response || "Không có phản hồi."));
+          }
+          // Sau khi chat xong, làm mới danh sách session để cập nhật tiêu đề
+          refreshSessions(true);
+        })
+        .catch(err => { spinner.remove(); addMessage("bot", "⚠️ Lỗi: " + esc(err.message)); });
+    }
+
+    // ====== Sessions ======
+    function populateSessions(list) {
+      sessionSelect.innerHTML = "";
+      list.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.id; opt.textContent = s.title || s.id;
+        if (s.id === currentSession) opt.selected = true;
+        sessionSelect.appendChild(opt);
+      });
+    }
+
+    function loadMessages(sessionId) {
+      chatArea.innerHTML = "";
+      api(`/sessions/${sessionId}/messages`)
+        .then(res => { res.messages.forEach(m => addMessage(m.role, esc(m.content))); })
+        .catch(() => addMessage("bot", "⚠️ Không tải được lịch sử."));
+    }
+
+    // keepCurrent = true: giữ nguyên currentSession nếu còn tồn tại
+    async function refreshSessions(keepCurrent = true) {
+      try {
+        const list = await api("/sessions");
+        // Nếu không có session nào → tạo mới
+        if (!list.length) {
+          const s = await api("/sessions", { method:"POST", body: JSON.stringify({}) });
+          currentSession = s.id;
+          localStorage.setItem("hr_current_session", currentSession);
+          populateSessions([s]);
+          return;
+        }
+        // Nếu currentSession không nằm trong list → dùng session đầu tiên
+        if (!list.find(x => x.id === currentSession)) {
+          currentSession = list[0].id;
+          localStorage.setItem("hr_current_session", currentSession);
+        }
+        populateSessions(list);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function createNewSession() {
+      api("/sessions", { method:"POST", body: JSON.stringify({}) })
+        .then(s => {
+          currentSession = s.id;
+          localStorage.setItem("hr_current_session", currentSession);
+          refreshSessions();
+          chatArea.innerHTML="";
+          addMessage("bot", `🆕 Đã tạo session mới: <b>${esc(s.id)}</b>`);
+        })
+        .catch(err => alert("Không tạo được session: " + err.message));
+    }
+
+    function deleteCurrentSession() {
+      if (!currentSession) return;
+      if (!confirm("Xóa session hiện tại?")) return;
+      api(`/sessions/${currentSession}`, { method:"DELETE" })
+        .then(() => {
+          addMessage("bot", `🗑️ Đã xóa session: <b>${esc(currentSession)}</b>`);
+          currentSession = "";
+          refreshSessions(false).then(() => {
+            if (sessionSelect.options.length) {
+              currentSession = sessionSelect.options[0].value;
+              localStorage.setItem("hr_current_session", currentSession);
+              loadMessages(currentSession);
+            } else {
+              // không còn session nào → tạo mới
+              createNewSession();
+            }
+          });
+          chatArea.innerHTML="";
+        })
+        .catch(err => alert("Không xóa được session: " + err.message));
+    }
+
+    sessionSelect.addEventListener("change", e => {
+      currentSession = e.target.value;
+      localStorage.setItem("hr_current_session", currentSession);
+      loadMessages(currentSession);
+    });
+
+    chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+    // ====== Health indicator ======
+    function updateHealth(ok, msg) {
+      statusDot.style.background = ok ? "#16a34a" : "#ef4444"; // green/red
+      statusText.textContent = ok ? "Backend sẵn sàng" : ("Mất kết nối: " + (msg||""));
+    }
+    function checkHealth() {
+      fetch("/health").then(r => r.json())
+        .then(j => updateHealth(!!j.ok, j.error || "" ))
+        .catch(err => updateHealth(false, err.message));
+    }
+
+    // ====== boot ======
+    (async function boot(){
+      checkHealth();
+      await refreshSessions(true);
+      loadMessages(currentSession);
+      // ping health định kỳ
+      setInterval(checkHealth, 15000);
+    })();
+
+    function showContact(){ alert("Liên hệ: support@xai.com | +84 123 456 789"); }
+  </script>
+</body>
+</html>
