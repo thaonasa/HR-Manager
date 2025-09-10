@@ -68,3 +68,14 @@ Mức độ tuân thủ (compliance_score)
 Đặc điểm cửa hàng đích
 
 → Mô hình ML tính toán và chọn ra những nhân sự có khả năng phù hợp/cống hiến tốt nhất cho cửa hàng đích.
+
+
+Đăng ký cửa hàng mới
+
+Mở web → “➕ Đăng ký cửa hàng mới”.
+
+Nhập: Store ID & Tên cửa hàng (bắt buộc). Có thể thêm KPI 2024 & Violations trung bình (tuỳ chọn).
+
+Bấm Đăng ký → sẽ thấy tin nhắn xác nhận trong khung chat.
+
+Gõ ngay: gợi ý cho cửa hàng <ID> để nhận đề xuất cho cửa hàng vừa tạo.

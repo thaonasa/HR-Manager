@@ -11,9 +11,12 @@
     .container { display:flex; flex:1; overflow:hidden; }
     .sidebar { width:260px; background:#fff; padding:10px; box-shadow:2px 0 4px rgba(0,0,0,.1); overflow-y:auto; }
     .sidebar h3 { color:#1e90ff; margin-bottom:10px; }
-    .sidebar select, .sidebar button { width:100%; padding:6px; margin:6px 0; border-radius:6px; border:1px solid #ccc; cursor:pointer; }
+    .sidebar select, .sidebar button, .sidebar input { width:100%; padding:6px; margin:6px 0; border-radius:6px; border:1px solid #ccc; }
+    .sidebar button { cursor:pointer; }
     .status { font-size:12px; margin:6px 0 12px; color:#666 }
     .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; background:#aaa; vertical-align:middle; }
+    details { border:1px solid #e5e7eb; border-radius:8px; padding:6px 8px; margin-top:8px; }
+    details summary { cursor:pointer; font-weight:600; color:#1e90ff; }
     .main { flex:1; display:flex; flex-direction:column; padding:10px; }
     .chat-area { flex:1; overflow-y:auto; padding:10px; background:#fff; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,.1); margin-bottom:10px; }
     .message { display:flex; align-items:flex-start; gap:8px; margin:6px 0; padding:10px; border-radius:10px; background:#f9f9f9; animation:fadeIn .3s; }
@@ -39,6 +42,11 @@
 
   <div class="container">
     <div class="sidebar">
+      <button onclick="saveLastRecommendation()">💾 Lưu đề xuất hiện tại</button>
+      <input type="number" id="history-store-id" placeholder="Store ID">
+      <button onclick="showHistory()">📜 Lịch sử đề xuất theo Store</button>
+      <div id="history-area" style="margin-top:8px;"></div>
+
       <h3>Tùy chọn</h3>
       <div class="status">
         <span id="status-dot" class="dot"></span>
@@ -52,6 +60,20 @@
       <button onclick="createNewSession()">Tạo session mới</button>
       <button onclick="deleteCurrentSession()">Xóa session hiện tại</button>
       <button onclick="refreshSessions(false)">Làm mới session</button>
+
+      <details>
+        <summary>➕ Đăng ký cửa hàng mới</summary>
+        <label for="reg_store_id">Store ID*</label>
+        <input id="reg_store_id" type="number" placeholder="VD: 999" />
+        <label for="reg_store_name">Tên cửa hàng*</label>
+        <input id="reg_store_name" type="text" placeholder="VD: Bkr 999 ABC" />
+        <label for="reg_kpi">KPI 2024 (trung bình)</label>
+        <input id="reg_kpi" type="number" step="0.01" placeholder="VD: 2.62 (tuỳ chọn)" />
+        <label for="reg_viol">Violations (trung bình)</label>
+        <input id="reg_viol" type="number" step="1" placeholder="VD: 18 (tuỳ chọn)" />
+        <button onclick="registerStore()">Đăng ký</button>
+      </details>
+
       <button onclick="showContact()">Liên hệ</button>
     </div>
 
@@ -65,12 +87,15 @@
   </div>
 
   <div class="footer">
-    © 2025 xAI | Email: support@xai.com | Phone: +84 123 456 789
+    © 2025 AIC | Email: aicenter@doticom.com | Phone: +84 123 456 789
   </div>
 
   <script>
     // ====== State ======
     let currentSession = localStorage.getItem("hr_current_session") || "session-1";
+    let lastEmployees = null;
+    let lastMeta = null;
+
     const chatArea = document.getElementById("chat-area");
     const chatInput = document.getElementById("chat-input");
     const sessionSelect = document.getElementById("session-select");
@@ -79,6 +104,18 @@
 
     // ====== Utils ======
     function esc(str){ return (str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    function api(path, opts = {}) {
+      return fetch(path, { headers: { "Content-Type": "application/json" }, ...opts })
+        .then(r => { if (!r.ok) throw new Error(r.status+" "+r.statusText); return r.json(); });
+    }
+
+    // Chuẩn hoá câu lệnh: số → gợi ý cho cửa hàng N, "show toàn bộ" → "show toàn bộ nhân sự"
+    function normalizeQuery(s){
+      const t = (s||"").trim().toLowerCase();
+      if (/^\d+$/.test(t)) return `gợi ý cho cửa hàng ${t}`;
+      if (/^(show|hiển thị)\s+(toàn bộ|tất cả|all)(\s+nhân sự)?$/.test(t)) return "show toàn bộ nhân sự";
+      return s;
+    }
 
     function addMessage(role, htmlContent) {
       const wrap = document.createElement("div");
@@ -138,34 +175,139 @@
         </div>`;
     }
 
-    function api(path, opts = {}) {
-      return fetch(path, { headers: { "Content-Type": "application/json" }, ...opts })
-        .then(r => { if (!r.ok) throw new Error(r.status+" "+r.statusText); return r.json(); });
+    // Hiển thị lại từ lịch sử (hỗ trợ JSON hoặc text)
+    function renderStoredMessage(m) {
+      if (m.role === "bot") {
+        let obj = null;
+        try { obj = JSON.parse(m.content); } catch (e) { /* không phải JSON */ }
+        const employees = obj?.employees || obj?.payload?.employees;
+        if (Array.isArray(employees)) {
+          const title = obj?.meta?.title || obj?.response || "Danh sách nhân sự";
+          addBotHTML(renderEmployeesTable(employees, title));
+          return;
+        }
+        addMessage("bot", esc(obj?.response || m.content));
+      } else {
+        addMessage("user", esc(m.content));
+      }
     }
 
     // ====== Chat ======
     function sendMessage() {
       const raw = chatInput.value.trim();
       if (!raw) return;
+
+      const message = normalizeQuery(raw);
       addMessage("user", esc(raw));
       chatInput.value = "";
 
       const spinner = addBotHTML('<div class="spinner"></div> Đang xử lý...');
 
-      api("/chat", { method:"POST", body: JSON.stringify({ message: raw, session_id: currentSession }) })
+      api("/chat", { method:"POST", body: JSON.stringify({ message, session_id: currentSession }) })
         .then(data => {
           spinner.remove();
           const employees = data.employees || data.payload?.employees;
           if (Array.isArray(employees)) {
-            const title = data.meta?.title || data.response || "Danh sách nhân sự";
+            lastEmployees = employees;
+            lastMeta = { store_id: data.meta?.store_id, top: data.meta?.top, title: data.meta?.title || data.response };
+            const title = lastMeta.title || "Danh sách nhân sự";
             addBotHTML(renderEmployeesTable(employees, title));
           } else {
+            lastEmployees = null;
+            lastMeta = null;
             addMessage("bot", esc(data.response || "Không có phản hồi."));
           }
-          // Sau khi chat xong, làm mới danh sách session để cập nhật tiêu đề
-          refreshSessions(true);
+          refreshSessions(true); // cập nhật tiêu đề session
         })
         .catch(err => { spinner.remove(); addMessage("bot", "⚠️ Lỗi: " + esc(err.message)); });
+    }
+
+    // ====== Lưu đề xuất hiện tại ======
+    function saveLastRecommendation() {
+      if (!lastEmployees || !lastMeta?.store_id || !lastMeta?.top) {
+        alert("Không có đề xuất nào để lưu.");
+        return;
+      }
+      api("/recommendations/save", {
+        method: "POST",
+        body: JSON.stringify({
+          store_id: lastMeta.store_id,
+          top: lastMeta.top,
+          exclude_same_store: true,
+          employees: lastEmployees,
+          source: "ui",
+          request_text: `Session ${currentSession}`
+        })
+      })
+      .then(() => addBotHTML("✅ Đã lưu đề xuất vào DB."))
+      .catch(err => addBotHTML("⚠️ Lỗi khi lưu đề xuất: " + esc(err.message)));
+    }
+
+    // ====== Lịch sử đề xuất ======
+    function showHistory() {
+      const sid = parseInt(document.getElementById("history-store-id").value || "0", 10);
+      if (!sid) { alert("Nhập Store ID để xem lịch sử."); return; }
+      api(`/recommendations/by_store/${sid}`)
+        .then(list => {
+          if (!Array.isArray(list) || list.length === 0) {
+            document.getElementById("history-area").innerHTML = "<i>Không có lịch sử.</i>";
+            return;
+          }
+          const html = `
+            <div style="margin-top:8px;">
+              <b>Lịch sử đề xuất cho store ${sid}</b>
+              <ul style="margin-top:6px;">
+              ${list.map(it => `
+                <li>
+                  #${it.id} • ${it.created_at} • source: ${esc(it.source)} • top=${it.top_n}
+                  <button onclick="loadRecDetail(${it.id})">Xem</button>
+                </li>`).join("")}
+              </ul>
+            </div>`;
+          document.getElementById("history-area").innerHTML = html;
+        })
+        .catch(err => addBotHTML("⚠️ Lỗi khi tải lịch sử: " + esc(err.message)));
+    }
+
+    function loadRecDetail(id) {
+      api(`/recommendations/${id}`)
+        .then(rec => {
+          const employees = rec.payload?.employees || [];
+          const title = `#${rec.id} – Store ${rec.store_id} – Top ${rec.top_n}`;
+          addBotHTML(renderEmployeesTable(employees, title));
+        })
+        .catch(err => addBotHTML("⚠️ Lỗi khi tải chi tiết đề xuất: " + esc(err.message)));
+    }
+
+    // ====== Đăng ký cửa hàng mới ======
+    async function registerStore() {
+      const id = parseInt(document.getElementById('reg_store_id').value, 10);
+      const name = (document.getElementById('reg_store_name').value || '').trim();
+      const kpiVal = document.getElementById('reg_kpi').value;
+      const violVal = document.getElementById('reg_viol').value;
+
+      if (!id || !name) {
+        alert("Vui lòng nhập Store ID và Tên cửa hàng.");
+        return;
+      }
+
+      const payload = { store_id: id, store_name: name };
+      const kpi = parseFloat(kpiVal);
+      const viol = parseFloat(violVal);
+      if (!Number.isNaN(kpi)) payload.kpi24_mean = kpi;
+      if (!Number.isNaN(viol)) payload.violations_mean = viol;
+
+      try {
+        const res = await api('/stores/register', { method:'POST', body: JSON.stringify(payload) });
+        addMessage('bot', `✅ Đã đăng ký cửa hàng <b>${esc(name)}</b> (ID: <b>${id}</b>). Bạn có thể gõ: <i>gợi ý cho cửa hàng ${id}</i>`);
+        // reset form
+        document.getElementById('reg_store_id').value = '';
+        document.getElementById('reg_store_name').value = '';
+        document.getElementById('reg_kpi').value = '';
+        document.getElementById('reg_viol').value = '';
+      } catch (e) {
+        alert("Không đăng ký được: " + e.message);
+      }
     }
 
     // ====== Sessions ======
@@ -182,15 +324,13 @@
     function loadMessages(sessionId) {
       chatArea.innerHTML = "";
       api(`/sessions/${sessionId}/messages`)
-        .then(res => { res.messages.forEach(m => addMessage(m.role, esc(m.content))); })
+        .then(res => { res.messages.forEach(renderStoredMessage); })
         .catch(() => addMessage("bot", "⚠️ Không tải được lịch sử."));
     }
 
-    // keepCurrent = true: giữ nguyên currentSession nếu còn tồn tại
     async function refreshSessions(keepCurrent = true) {
       try {
         const list = await api("/sessions");
-        // Nếu không có session nào → tạo mới
         if (!list.length) {
           const s = await api("/sessions", { method:"POST", body: JSON.stringify({}) });
           currentSession = s.id;
@@ -198,15 +338,12 @@
           populateSessions([s]);
           return;
         }
-        // Nếu currentSession không nằm trong list → dùng session đầu tiên
         if (!list.find(x => x.id === currentSession)) {
           currentSession = list[0].id;
           localStorage.setItem("hr_current_session", currentSession);
         }
         populateSessions(list);
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) { console.error(e); }
     }
 
     function createNewSession() {
@@ -234,7 +371,6 @@
               localStorage.setItem("hr_current_session", currentSession);
               loadMessages(currentSession);
             } else {
-              // không còn session nào → tạo mới
               createNewSession();
             }
           });
@@ -253,7 +389,7 @@
 
     // ====== Health indicator ======
     function updateHealth(ok, msg) {
-      statusDot.style.background = ok ? "#16a34a" : "#ef4444"; // green/red
+      statusDot.style.background = ok ? "#16a34a" : "#ef4444";
       statusText.textContent = ok ? "Backend sẵn sàng" : ("Mất kết nối: " + (msg||""));
     }
     function checkHealth() {
@@ -267,11 +403,10 @@
       checkHealth();
       await refreshSessions(true);
       loadMessages(currentSession);
-      // ping health định kỳ
       setInterval(checkHealth, 15000);
     })();
 
-    function showContact(){ alert("Liên hệ: support@xai.com | +84 123 456 789"); }
+    function showContact(){ alert("Liên hệ: aicenter@doticom.com | +84 123 456 789"); }
   </script>
 </body>
 </html>
